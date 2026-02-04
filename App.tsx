@@ -58,9 +58,6 @@ const App: React.FC = () => {
     setIsGeneratingPdf(true);
 
     try {
-      // 0. Wait for fonts to load
-      await document.fonts.ready;
-
       // 1. Create a container element
       const container = document.createElement('div');
       container.style.position = 'fixed';
@@ -69,15 +66,13 @@ const App: React.FC = () => {
       container.style.width = '1280px'; // 720p width
       container.style.height = '720px'; // 720p height
       container.style.zIndex = '-1';
-      container.style.overflow = 'hidden'; // Ensure no overflow
       document.body.appendChild(container);
 
       // 2. Initialize PDF
       const pdf = new jsPDF({
         orientation: 'landscape',
         unit: 'px',
-        format: [1280, 720],
-        hotfixes: ['px_scaling'] // Fix for high-DPI scaling issues
+        format: [1280, 720]
       });
 
       // 3. Create Root for rendering
@@ -106,27 +101,19 @@ const App: React.FC = () => {
              </div>
            );
            // Wait for render and potential animations (recharts)
-           // Increased timeout to ensure charts are fully rendered
-           setTimeout(resolve, 3000); 
+           setTimeout(resolve, 1500); 
         });
 
         const canvas = await html2canvas(container, {
-          scale: 2, // Higher scale for better quality
+          scale: 1.5, // Reasonable quality/size balance
           useCORS: true,
-          allowTaint: true,
           logging: false,
           backgroundColor: '#0a192f',
-          width: 1280,
-          height: 720,
           windowWidth: 1280,
-          windowHeight: 720,
-          scrollX: 0,
-          scrollY: 0,
-          x: 0,
-          y: 0
+          windowHeight: 720
         });
 
-        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        const imgData = canvas.toDataURL('image/jpeg', 0.9);
         
         if (i > 0) pdf.addPage([1280, 720], 'landscape');
         pdf.addImage(imgData, 'JPEG', 0, 0, 1280, 720);
