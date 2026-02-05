@@ -1735,7 +1735,7 @@ export const DataValidationSlide: React.FC<SlideProps> = () => {
                         <div>
                             <strong className="text-white block mb-1">The "Brokerage Trap"</strong>
                             <ul className="list-disc pl-4 space-y-1 mb-2">
-                                <li>Centers take <span className="text-red-400 font-bold">25-40%</span> of 1st-month salary.</li>
+
                                 <li>"Administrative Burnout": ~5 hours/week on manual tasks.</li>
                             </ul>
                         </div>
