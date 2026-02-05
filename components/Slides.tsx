@@ -519,7 +519,7 @@ export const ExpertsSlide: React.FC<SlideProps> = () => (
                         <h4 className="text-3xl font-bold text-white leading-tight">Trinh Thi Kieu Ni</h4>
                         <div className="flex flex-wrap gap-3 mt-3">
                             <span className="text-sm font-bold text-navy-900 bg-purple-400 px-3 py-1 rounded-md">Teacher</span>
-                            <span className="text-sm font-bold text-slate-300 bg-navy-900 border border-navy-700 px-3 py-1 rounded-md">Math & Physics</span>
+                            <span className="text-sm font-bold text-slate-300 bg-navy-900 border border-navy-700 px-3 py-1 rounded-md">English</span>
                         </div>
                     </div>
                 </div>
@@ -529,14 +529,14 @@ export const ExpertsSlide: React.FC<SlideProps> = () => (
                         <School size={24} className="text-purple-500 shrink-0 mt-1" />
                         <div>
                             <strong className="text-white block text-xl mb-1">Level</strong>
-                            Secondary and High School
+                            Secondary School
                         </div>
                     </div>
                     <div className="flex gap-4">
                         <Award size={24} className="text-purple-500 shrink-0 mt-1" />
                         <div>
                             <strong className="text-white block text-xl mb-1">Expertise</strong>
-                            Classroom Instruction, Student Assessment
+                            English Language Teaching, Communicative Methods
                         </div>
                     </div>
                     <div className="flex gap-4">
@@ -544,7 +544,7 @@ export const ExpertsSlide: React.FC<SlideProps> = () => (
                         <div>
                             <strong className="text-white block text-xl mb-1">Teaching Experience (10+ Years)</strong>
                             <ul className="list-disc pl-5 space-y-2 mt-2 text-slate-300/90">
-                                <li>Taught English/Math to secondary/high school students.</li>
+                                <li>Taught English to secondary school students.</li>
                                 <li>Assessed performance through regular evaluations.</li>
                                 <li>Collaborated closely with parents to monitor progress.</li>
                             </ul>
@@ -1728,7 +1728,7 @@ export const DataValidationSlide: React.FC<SlideProps> = () => {
                         {/* Demographics */}
                         <div className="bg-navy-900/50 p-4 rounded-xl border-l-4 border-purple-500">
                             <strong className="text-purple-300 uppercase text-xs mb-1 block">Profile</strong>
-                            <p><span className="text-white font-bold">87.5%</span> University Students from top-tier institutions (83.3% Juniors/Seniors).</p>
+                            <p><span className="text-white font-bold">87.5%</span> University Students (83.3% Juniors/Seniors).</p>
                         </div>
 
                         {/* Problems */}
