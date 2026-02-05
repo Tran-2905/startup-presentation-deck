@@ -3,26 +3,29 @@ import { ChevronLeft, ChevronRight, Download, Loader2 } from 'lucide-react';
 import { createRoot } from 'react-dom/client';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { TitleSlide, MarketSlide, PortersSlide, PortersAnalysisSlide, ExpertsSlide, KeyLearningsSlide, DetailedCompetitiveTableSlide, ActionableFrameworkSlide, StrategicAnalysisSlide, BuyerPersonasSlide, DataValidationSlide, PainPointsSlide, MarketPainsSlide, GoodbyeSlide } from './components/Slides';
+import { TitleSlide, MarketSlide, PortersSlide, PortersAnalysisSlide, ExpertsSlide, KeyLearningsSlide, DetailedCompetitiveTableSlide, ActionableFrameworkSlide, StrategicAnalysisSlide, CompetitorsCriteriaSlide, CompetitiveAnalysisSlide, BuyerPersonasSlide, DataValidationSlide, PainPointsSlide, MarketPainsIntroSlide, MarketSolutionsSlide, GoodbyeSlide } from './components/Slides';
 import { SlideIndex } from './types';
 
-const TOTAL_SLIDES = 14;
+const TOTAL_SLIDES = 17;
 
 // List of slides in order for PDF generation
 const SLIDE_COMPONENTS = [
-  TitleSlide, 
-  MarketSlide, 
-  PortersSlide, 
-  PortersAnalysisSlide, 
-  ExpertsSlide, 
-  KeyLearningsSlide, 
-  DetailedCompetitiveTableSlide, 
-  ActionableFrameworkSlide, 
-  StrategicAnalysisSlide, 
-  BuyerPersonasSlide, 
-  DataValidationSlide, 
-  PainPointsSlide, 
-  MarketPainsSlide, 
+  TitleSlide,
+  MarketSlide,
+  PortersSlide,
+  PortersAnalysisSlide,
+  ExpertsSlide,
+  KeyLearningsSlide,
+  DetailedCompetitiveTableSlide,
+  ActionableFrameworkSlide,
+  StrategicAnalysisSlide,
+  CompetitorsCriteriaSlide,
+  CompetitiveAnalysisSlide,
+  BuyerPersonasSlide,
+  DataValidationSlide,
+  PainPointsSlide,
+  MarketPainsIntroSlide,
+  MarketSolutionsSlide,
   GoodbyeSlide
 ];
 
@@ -83,12 +86,12 @@ const App: React.FC = () => {
         const SlideComponent = SLIDE_COMPONENTS[i];
 
         await new Promise<void>((resolve) => {
-           // Render specific slide into container
-           // We wrap it to match the main styling
-           root.render(
-             <div className="w-[1280px] h-[720px] bg-navy-900 text-slate-100 flex flex-col relative overflow-hidden p-16">
-                 {/* Force desktop view styling */}
-                 <style>{`
+          // Render specific slide into container
+          // We wrap it to match the main styling
+          root.render(
+            <div className="w-[1280px] h-[720px] bg-navy-900 text-slate-100 flex flex-col items-center justify-center relative overflow-hidden p-6">
+              {/* Force desktop view styling */}
+              <style>{`
                     .md\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
                     .md\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
                     .lg\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
@@ -96,12 +99,25 @@ const App: React.FC = () => {
                     .lg\\:grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
                     .lg\\:col-span-2 { grid-column: span 2 / span 2 !important; }
                     .lg\\:col-span-3 { grid-column: span 3 / span 3 !important; }
+                    .md\\:col-start-1 { grid-column-start: 1 !important; }
+                    .md\\:col-start-2 { grid-column-start: 2 !important; }
+                    .md\\:col-start-3 { grid-column-start: 3 !important; }
+                    .md\\:text-7xl { font-size: 4.5rem !important; line-height: 1 !important; }
+                    .md\\:text-6xl { font-size: 3.75rem !important; line-height: 1 !important; }
+                    .md\\:text-5xl { font-size: 3rem !important; line-height: 1 !important; }
+                    .md\\:text-4xl { font-size: 2.25rem !important; line-height: 2.5rem !important; }
+                    .md\\:text-3xl { font-size: 1.875rem !important; line-height: 2.25rem !important; }
+                    .md\\:block { display: block !important; }
+                    .md\\:hidden { display: none !important; }
+                    .md\\:p-16 { padding: 4rem !important; }
+                    .md\\:p-8 { padding: 2rem !important; }
+                    .md\\:p-4 { padding: 1rem !important; }
                  `}</style>
-                 <SlideComponent active={true} />
-             </div>
-           );
-           // Wait for render and potential animations (recharts)
-           setTimeout(resolve, 1500); 
+              <SlideComponent active={true} />
+            </div>
+          );
+          // Wait for render and potential animations (recharts)
+          setTimeout(resolve, 1500);
         });
 
         const canvas = await html2canvas(container, {
@@ -114,7 +130,7 @@ const App: React.FC = () => {
         });
 
         const imgData = canvas.toDataURL('image/jpeg', 0.9);
-        
+
         if (i > 0) pdf.addPage([1280, 720], 'landscape');
         pdf.addImage(imgData, 'JPEG', 0, 0, 1280, 720);
       }
@@ -138,7 +154,7 @@ const App: React.FC = () => {
     <div className="h-screen w-screen bg-navy-900 text-slate-100 flex flex-col relative overflow-hidden">
       {/* Progress Bar */}
       <div className="absolute top-0 left-0 w-full h-1 bg-navy-800 z-50">
-        <div 
+        <div
           className="h-full bg-teal-400 transition-all duration-500 ease-out"
           style={{ width: `${((currentSlide + 1) / TOTAL_SLIDES) * 100}%` }}
         />
@@ -147,20 +163,23 @@ const App: React.FC = () => {
       {/* Slide Container */}
       <div className="flex-1 relative w-full h-full">
         <div className="absolute inset-0 transition-opacity duration-500 ease-in-out flex items-center justify-center p-8 md:p-16">
-            {currentSlide === SlideIndex.Title && <TitleSlide active={true} />}
-            {currentSlide === SlideIndex.Market && <MarketSlide active={true} />}
-            {currentSlide === SlideIndex.Porters && <PortersSlide active={true} />}
-            {currentSlide === SlideIndex.Analysis && <PortersAnalysisSlide active={true} />}
-            {currentSlide === SlideIndex.Experts && <ExpertsSlide active={true} />}
-            {currentSlide === SlideIndex.KeyLearnings && <KeyLearningsSlide active={true} />}
-            {currentSlide === SlideIndex.DetailedCompetitive && <DetailedCompetitiveTableSlide active={true} />}
-            {currentSlide === SlideIndex.ActionableFramework && <ActionableFrameworkSlide active={true} />}
-            {currentSlide === SlideIndex.StrategicAnalysis && <StrategicAnalysisSlide active={true} />}
-            {currentSlide === SlideIndex.BuyerPersonas && <BuyerPersonasSlide active={true} />}
-            {currentSlide === SlideIndex.DataValidation && <DataValidationSlide active={true} />}
-            {currentSlide === SlideIndex.PainPoints && <PainPointsSlide active={true} />}
-            {currentSlide === SlideIndex.MarketPains && <MarketPainsSlide active={true} />}
-            {currentSlide === SlideIndex.Goodbye && <GoodbyeSlide active={true} />}
+          {currentSlide === SlideIndex.Title && <TitleSlide active={true} />}
+          {currentSlide === SlideIndex.Market && <MarketSlide active={true} />}
+          {currentSlide === SlideIndex.Porters && <PortersSlide active={true} />}
+          {currentSlide === SlideIndex.Analysis && <PortersAnalysisSlide active={true} />}
+          {currentSlide === SlideIndex.Experts && <ExpertsSlide active={true} />}
+          {currentSlide === SlideIndex.KeyLearnings && <KeyLearningsSlide active={true} />}
+          {currentSlide === SlideIndex.DetailedCompetitive && <DetailedCompetitiveTableSlide active={true} />}
+          {currentSlide === SlideIndex.ActionableFramework && <ActionableFrameworkSlide active={true} />}
+          {currentSlide === SlideIndex.StrategicAnalysis && <StrategicAnalysisSlide active={true} />}
+          {currentSlide === SlideIndex.CompetitorsCriteria && <CompetitorsCriteriaSlide active={true} />}
+          {currentSlide === SlideIndex.CompetitiveAnalysis && <CompetitiveAnalysisSlide active={true} />}
+          {currentSlide === SlideIndex.BuyerPersonas && <BuyerPersonasSlide active={true} />}
+          {currentSlide === SlideIndex.DataValidation && <DataValidationSlide active={true} />}
+          {currentSlide === SlideIndex.PainPoints && <PainPointsSlide active={true} />}
+          {currentSlide === SlideIndex.MarketPainsIntro && <MarketPainsIntroSlide active={true} />}
+          {currentSlide === SlideIndex.MarketSolutions && <MarketSolutionsSlide active={true} />}
+          {currentSlide === SlideIndex.Goodbye && <GoodbyeSlide active={true} />}
         </div>
       </div>
 
@@ -169,7 +188,7 @@ const App: React.FC = () => {
         <span className="text-slate-400 text-sm font-mono">
           {currentSlide + 1} / {TOTAL_SLIDES}
         </span>
-        
+
         {/* PDF Download Button */}
         <button
           onClick={handleGeneratePdf}
@@ -183,14 +202,14 @@ const App: React.FC = () => {
         <div className="w-px h-6 bg-navy-700 mx-2"></div>
 
         <div className="flex gap-2">
-          <button 
+          <button
             onClick={prevSlide}
             disabled={currentSlide === 0 || isGeneratingPdf}
             className="p-2 rounded-full bg-navy-800 hover:bg-teal-500 hover:text-navy-900 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           >
             <ChevronLeft size={24} />
           </button>
-          <button 
+          <button
             onClick={nextSlide}
             disabled={currentSlide === TOTAL_SLIDES - 1 || isGeneratingPdf}
             className="p-2 rounded-full bg-navy-800 hover:bg-teal-500 hover:text-navy-900 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
@@ -207,11 +226,11 @@ const App: React.FC = () => {
 
       {/* Loading Overlay for PDF */}
       {isGeneratingPdf && (
-         <div className="absolute inset-0 z-[100] bg-navy-900/80 backdrop-blur-sm flex flex-col items-center justify-center text-center">
-            <Loader2 size={64} className="text-teal-400 animate-spin mb-4" />
-            <h2 className="text-2xl font-bold text-white">Generating PDF...</h2>
-            <p className="text-slate-400 mt-2">Please wait while we capture all slides.</p>
-         </div>
+        <div className="absolute inset-0 z-[100] bg-navy-900/80 backdrop-blur-sm flex flex-col items-center justify-center text-center">
+          <Loader2 size={64} className="text-teal-400 animate-spin mb-4" />
+          <h2 className="text-2xl font-bold text-white">Generating PDF...</h2>
+          <p className="text-slate-400 mt-2">Please wait while we capture all slides.</p>
+        </div>
       )}
     </div>
   );

@@ -18,9 +18,12 @@ export enum SlideIndex {
   DetailedCompetitive = 6,
   ActionableFramework = 7,
   StrategicAnalysis = 8,
-  BuyerPersonas = 9,
-  DataValidation = 10,
-  PainPoints = 11,
-  MarketPains = 12,
-  Goodbye = 13
+  CompetitorsCriteria = 9,
+  CompetitiveAnalysis = 10,
+  BuyerPersonas = 11,
+  DataValidation = 12,
+  PainPoints = 13,
+  MarketPainsIntro = 14,
+  MarketSolutions = 15,
+  Goodbye = 16
 }
