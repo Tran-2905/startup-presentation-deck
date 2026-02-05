@@ -766,7 +766,7 @@ export const DetailedCompetitiveTableSlide: React.FC<SlideProps> = () => {
                                 </th>
                             ))}
                             <th className="p-3 font-bold text-teal-400 text-xs uppercase tracking-wider bg-teal-900/20 border-l border-teal-500 min-w-[140px]">
-                                Your Startup
+                                My Startup
                             </th>
                         </tr>
                     </thead>
@@ -1256,7 +1256,7 @@ export const CompetitorsCriteriaSlide: React.FC<SlideProps> = () => {
                             <th className="p-3 font-bold text-teal-400 text-xs uppercase tracking-wider bg-teal-900/20 border-l border-teal-500/30 min-w-[180px]">
                                 <div className="flex items-center gap-2">
                                     <ShieldCheck size={14} className="text-teal-400" />
-                                    Your Startup
+                                    My Startup
                                 </div>
                             </th>
                             <th className="p-3 font-bold text-slate-400 text-[10px] uppercase tracking-wider min-w-[120px]">
